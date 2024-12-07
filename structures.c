@@ -6,7 +6,7 @@ CONN* connInnit(int to_id, int cost){
     conn->to_id = to_id;
     conn->cost = cost;
     return conn;
-};
+}
 
 void connFree(CONN* conn){
     if(conn != NULL){
@@ -18,8 +18,9 @@ void connFree(CONN* conn){
 NODE* nodeInnit(int id){
     NODE* node = calloc(1, sizeof(NODE));
     node->id = id;
+    node->cost = 0;
     node->conn = NULL;
-    node->hnode = NULL;
+    node->fnode = NULL;
     return node;
 }
 
@@ -41,4 +42,17 @@ void addConn(NODE** node_list, int node1_id, int node2_id, int cost){
     CONN* conn2 = connInnit(node1_id, cost);
     conn2->next_conn = node2->conn;
     node2->conn = conn2;
+}
+
+FNODE* fnodeInnit(NODE* key_node){
+    FNODE* fnode = calloc(1, sizeof(FNODE));
+    fnode->key_node = key_node;
+    fnode->degree = 0;
+    fnode->marked = 0;
+    fnode->is_root = 1;
+    fnode->parent = NULL;
+    fnode->lbro = NULL;
+    fnode->rbro = NULL;
+    fnode->child = NULL;
+    return fnode;
 }
