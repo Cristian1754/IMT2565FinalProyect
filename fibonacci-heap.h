@@ -1,5 +1,5 @@
 #pragma once
-#include "structures.h"
+#include "structures.c"
 
 struct fheap; typedef struct fheap FHEAP;
 
