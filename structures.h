@@ -21,6 +21,7 @@ struct node{
     int cost;
     FNODE* fnode;
     CONN* conn;
+    int state;
 };
 
 NODE* nodeInnit(int id);
