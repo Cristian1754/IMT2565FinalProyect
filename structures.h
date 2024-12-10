@@ -20,6 +20,7 @@ struct node{
     int id;
     int cost;
     FNODE* fnode;
+    int heap_index;
     CONN* conn;
     int state;
 };

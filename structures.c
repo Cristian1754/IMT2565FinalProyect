@@ -25,6 +25,8 @@ NODE *nodeInnit(int id)
     node->cost = 0;
     node->conn = NULL;
     node->fnode = NULL;
+    node->heap_index = -1;
+    node->state = -1;
     return node;
 }
 
