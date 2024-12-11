@@ -106,7 +106,7 @@ FNODE *fnodeUnion(FNODE *fnode1, FNODE *fnode2)
     return parent_fnode;
 }
 
-NODE *extractMin(FHEAP *fheap)
+NODE *extractfMin(FHEAP *fheap)
 {
 
     // printf("Extraigo el minimo del heap\n");
@@ -225,7 +225,7 @@ void cutOutFnode(FHEAP *fheap, FNODE *fnode)
     fnode->parent = NULL;
 }
 
-void decreaseKey(FHEAP *fheap, NODE *key_node, int new_cost)
+void decreasefKey(FHEAP *fheap, NODE *key_node, int new_cost)
 {
 
     key_node->cost = new_cost;
