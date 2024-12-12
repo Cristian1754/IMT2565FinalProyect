@@ -31,7 +31,11 @@ int main(int argc, char **argv)
     int EDGES_NUMBER;
     fscanf(input_file, "%d", &EDGES_NUMBER);
     // fprintf(output_file, "EDGES_NUMBER: %d\n", EDGES_NUMBER);
-    bool fiboheap = false;
+
+    ////////////////////////
+    bool fiboheap = true;
+    ////////////////////////
+
     NODE **NODES = calloc(NODES_NUMBER + 1, sizeof(NODE));
     for (int i = 0; i < NODES_NUMBER + 1; i++)
     {
@@ -52,25 +56,25 @@ int main(int argc, char **argv)
         addConn(NODES, TAIL, HEAD, COST);
     }
 
+    int MAX_DEGREE = 19;
     NODE **PI = calloc(NODES_NUMBER + 1, sizeof(NODE));
-    int start = 1;
-    int end = 2;
-    if (fiboheap)
-    {
-        DijkstraFH(NODES, PI, start, NODES_NUMBER, NODES_NUMBER);
-    }
-    else
-    {
-        DijkstraH(NODES, PI, start, NODES_NUMBER);
-    }
+    // int start = 1;
+    // if (fiboheap)
+    // {
+    //     DijkstraFH(NODES, PI, start, NODES_NUMBER, MAX_DEGREE);
+    // }
+    // else
+    // {
+    //     DijkstraH(NODES, PI, start, NODES_NUMBER);
+    // }
 
-    fprintf(output_file, "RUTA PARA LLEGAR DESDE NODO %d HASTA EL NODO %d con costo %d\n", start, end, NODES[end]->cost);
-    NODE *STATE = NODES[end];
-    while (STATE != NULL)
-    {
-        fprintf(output_file, "NODO %d\n", STATE->id);
-        STATE = PI[STATE->id];
-    }
+    // fprintf(output_file, "RUTA PARA LLEGAR DESDE NODO %d HASTA EL NODO %d con costo %d\n", start, end, NODES[end]->cost);
+    // NODE *STATE = NODES[end];
+    // while (STATE != NULL)
+    // {
+    //     fprintf(output_file, "NODO %d\n", STATE->id);
+    //     STATE = PI[STATE->id];
+    // }
 
     // LIBERAR MEMORIA
     free(NODES[0]->fnode);

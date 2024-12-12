@@ -31,8 +31,8 @@ NODE *extractMin(HEAP *heap)
         return NULL;
     }
     NODE *min_node = heap->array[0];
-    heap->array[0] = NULL;
     swap(heap, 0, heap->last - 1);
+    heap->array[heap->last - 1] = NULL;
     heap->last = heap->last - 1;
     siftDown(heap, 0);
     return min_node;
@@ -40,7 +40,10 @@ NODE *extractMin(HEAP *heap)
 
 void swap(HEAP *heap, int index1, int index2)
 {
-    if (index1 == index2) { return;}
+    if (index1 == index2)
+    {
+        return;
+    }
 
     NODE *node1 = heap->array[index1];
     NODE *node2 = heap->array[index2];
@@ -69,39 +72,51 @@ void siftUp(HEAP *heap, int index)
     }
 }
 
-void siftDown(HEAP* heap, int index) {
+void siftDown(HEAP *heap, int index)
+{
 
-    int lchild_index = (2*index) + 1;
-    int rchild_index = (2*index) + 2;
-    NODE* min_child_node;
+    int lchild_index = (2 * index) + 1;
+    int rchild_index = (2 * index) + 2;
+    NODE *min_child_node;
     int min_child_index;
 
-    if (lchild_index >= heap->size || rchild_index >= heap->size){ return;}
-    if (heap->array[lchild_index] == NULL) { return;}
+    if (lchild_index >= heap->size || rchild_index >= heap->size)
+    {
+        return;
+    }
+    if (heap->array[lchild_index] == NULL)
+    {
+        return;
+    }
 
-    if (heap->array[rchild_index] == NULL){
+    if (heap->array[rchild_index] == NULL)
+    {
         min_child_node = heap->array[lchild_index];
         min_child_index = lchild_index;
-    } else {
-        if (heap->array[lchild_index]->cost < heap->array[rchild_index]->cost) {
+    }
+    else
+    {
+        if (heap->array[lchild_index]->cost < heap->array[rchild_index]->cost)
+        {
             min_child_node = heap->array[lchild_index];
             min_child_index = lchild_index;
-        } else {
+        }
+        else
+        {
             min_child_node = heap->array[rchild_index];
             min_child_index = rchild_index;
         }
     }
 
-    if (heap->array[index]->cost < min_child_node->cost) {
+    if (heap->array[index]->cost > min_child_node->cost)
+    {
         swap(heap, index, min_child_index);
         siftDown(heap, min_child_index);
     }
-
 }
 
 void decreaseKey(HEAP *heap, int index, int new_cost)
 {
     heap->array[index]->cost = new_cost;
-    printf("logre definir el costo indice %d\n", index);
     siftUp(heap, index);
 }
