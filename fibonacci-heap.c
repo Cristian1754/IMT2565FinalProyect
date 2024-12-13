@@ -13,8 +13,6 @@ FHEAP *fheapInnit(int max_degree)
 
 void insertFnode(FHEAP *fheap, FNODE *fnode)
 {
-
-    // printf("Inserto el nodo %d con costo %d\n", fnode->key_node->id, fnode->key_node->cost);
     if (fheap->number_of_roots == 0)
     {
         fheap->min_root = fnode;
@@ -23,7 +21,6 @@ void insertFnode(FHEAP *fheap, FNODE *fnode)
         fheap->number_of_roots = fheap->number_of_roots + 1;
         fheap->min_root = fnode;
         fnode->is_root = 1;
-        // printf("\tAhora %d es el nuevo mínimo\n", fnode->key_node->id);
         return;
     }
 
@@ -35,7 +32,6 @@ void insertFnode(FHEAP *fheap, FNODE *fnode)
     if (fheap->min_root->key_node->cost > fnode->key_node->cost)
     {
         fheap->min_root = fnode;
-        // printf("\tAhora %d es el nuevo mínimo\n", fnode->key_node->id);
     }
 
     fnode->is_root = 1;
@@ -44,8 +40,6 @@ void insertFnode(FHEAP *fheap, FNODE *fnode)
 
 void moveToRoot(FHEAP *fheap, FNODE *fnode)
 {
-
-    // printf("Muevo %d a la raiz\n", fnode->key_node->id);
     if (fnode->parent == NULL)
     {
     }
@@ -61,15 +55,12 @@ void moveToRoot(FHEAP *fheap, FNODE *fnode)
     }
 
     fnode->parent->degree = fnode->parent->degree - 1;
-    // fnode->parent = NULL;
 
     insertFnode(fheap, fnode);
 }
 
 FNODE *fnodeUnion(FNODE *fnode1, FNODE *fnode2)
 {
-
-    // printf("Uno los fnodos %d y %d\n", fnode1->key_node->id, fnode2->key_node->id);
     FNODE *parent_fnode;
     FNODE *child_fnode;
 
@@ -77,13 +68,11 @@ FNODE *fnodeUnion(FNODE *fnode1, FNODE *fnode2)
     {
         parent_fnode = fnode1;
         child_fnode = fnode2;
-        // printf("\t %d sera el padre de %d\n", fnode1->key_node->id, fnode2->key_node->id);
     }
     else
     {
         parent_fnode = fnode2;
         child_fnode = fnode1;
-        // printf("\t %d sera el padre de %d\n", fnode2->key_node->id, fnode1->key_node->id);
     }
 
     if (parent_fnode->child == NULL)
@@ -108,8 +97,6 @@ FNODE *fnodeUnion(FNODE *fnode1, FNODE *fnode2)
 
 NODE *extractfMin(FHEAP *fheap)
 {
-
-    // printf("Extraigo el minimo del heap\n");
     if (fheap->number_of_roots == 0)
     {
         return NULL;
@@ -118,7 +105,6 @@ NODE *extractfMin(FHEAP *fheap)
     FNODE *fnode = fheap->min_root;
     NODE *node = fnode->key_node;
     int degree = fnode->degree;
-    // printf("\t %d es el minimo\n", fnode->key_node->id);
 
     FNODE *current_child = fnode->child;
     FNODE *next_child;
@@ -151,7 +137,6 @@ NODE *extractfMin(FHEAP *fheap)
 void condenseRoots(FHEAP *fheap)
 {
 
-    // printf("Condenso el Heap\n");
     FNODE *buffer[fheap->max_degree];
     for (int i = 0; i < fheap->max_degree; i += 1)
     {
@@ -180,15 +165,11 @@ void condenseRoots(FHEAP *fheap)
 
 void insertInBuffer(FNODE *buffer[], FNODE *fnode)
 {
-
-    // printf("Quiero insertar nodo %d con grado %d al buffer\n", fnode->key_node->id, fnode->degree);
     if (buffer[fnode->degree] == NULL)
     {
-        // printf("\t Se ha insertado con exito\n");
         buffer[fnode->degree] = fnode;
         return;
     }
-    // printf("\t No es posible la inserción\n");
 
     FNODE *fnode2 = buffer[fnode->degree];
     buffer[fnode->degree] = NULL;
@@ -198,8 +179,6 @@ void insertInBuffer(FNODE *buffer[], FNODE *fnode)
 
 void cutOutFnode(FHEAP *fheap, FNODE *fnode)
 {
-
-    // printf("Corto el nodo %d\n", fnode->key_node->id);
     if (fnode->is_root == 1)
     {
         return;
@@ -207,16 +186,12 @@ void cutOutFnode(FHEAP *fheap, FNODE *fnode)
 
     moveToRoot(fheap, fnode);
     fnode->marked = 0;
-    // printf("\t Nodo %d ya no esta marcado\n", fnode->key_node->id);
-
     if (fnode->parent == NULL)
     {
-        // printf("HOLA\n");
     }
     if (fnode->parent->marked == 0)
     {
         fnode->parent->marked = 1;
-        // printf("\t El padre del nodo %d, %d esta marcado\n", fnode->key_node->id, fnode->parent->key_node->id);
     }
     else
     {
@@ -230,7 +205,6 @@ void decreasefKey(FHEAP *fheap, NODE *key_node, int new_cost)
 
     key_node->cost = new_cost;
     FNODE *fnode = key_node->fnode;
-    // printf("El nuevo valor de %d ahora es %d\n", fnode->key_node->id, new_cost);
 
     if (fnode->is_root == 1)
     {
@@ -240,12 +214,8 @@ void decreasefKey(FHEAP *fheap, NODE *key_node, int new_cost)
         }
         return;
     }
-    // printf("el nodo %d tien costo %d, su padre %d tiene costo %d\n",
-    //        fnode->key_node->id, fnode->key_node->cost, fnode->parent->key_node->id,
-    //        fnode->parent->key_node->cost);
     if (new_cost < fnode->parent->key_node->cost)
     {
-        // printf("HOLA\n");
         cutOutFnode(fheap, fnode);
     }
 }
