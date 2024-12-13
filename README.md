@@ -1,4 +1,4 @@
-# IMT2565FinalProyect
+# IMT2565FinalProyecto
 
 Este repositorio contiene la implementación de Dijkstra ocupando heaps y 
 Fibonacci heaps.
